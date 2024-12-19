@@ -2,20 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
+/* root variables -  light theme colors and  playstation-inspired variables */
 :root {
+  /* existing theme colors */
   --background: #ffffff;
   --foreground: #171717;
+
+  /* playstation theme colors - having them as css variables allows for easy theme switching later */
+  --ps-blue: #0072ce;
+  --ps-navy: #003791;
+  --ps-black: #000000;
+  --ps-gray-100: #f7f7f7;
+  --ps-gray-200: #e4e4e4;
+  --ps-gray-400: #a1a1a1;
+  --ps-gray-600: #666666;
+  --ps-gray-800: #333333;
 }
 
+/* dark mode adjustments - */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+
+    /* can adjust playstation colors for dark mode if needed */
+    --ps-gray-100: #1a1a1a;
+    --ps-gray-200: #2a2a2a;
+    --ps-gray-400: #4a4a4a;
+    --ps-gray-600: #8a8a8a;
+    --ps-gray-800: #cacaca;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* custom utility classes for our retro components */
+@layer components {
+  /* retro button - playstation-style button with crisp edges and shadows */
+  .buttonRetro {
+    @apply bg-ps-blue 
+      text-white 
+      font-ps 
+      px-4 
+      py-2 
+      shadow-retro 
+      border-retro 
+      border-ps-black 
+      hover:shadow-retro-soft 
+      active:shadow-retro-inset 
+      transition-all 
+      duration-200;
+  }
+
+  /* retro card - playstation-era card styling with thick borders */
+  .cardRetro {
+    @apply bg-ps-gray-100 
+      border-retro 
+      border-ps-black 
+      shadow-retro-soft 
+      p-4;
+  }
+
+  /* retro text - playstation-style text formatting */
+  .textRetro {
+    @apply font-ps 
+      text-ps-gray-600 
+      leading-relaxed;
+  }
+}
+
+/* base styles - body styles */
+@layer base {
+  body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  /* consistent heading styles */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-ps font-bold text-ps-black dark:text-ps-gray-100;
+  }
 }
