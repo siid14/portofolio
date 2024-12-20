@@ -1,14 +1,29 @@
-// REACT IMPORTS
-import React from "react";
+// * REACT IMPORTS
+import React, { useState } from "react";
+
+// * ICONS
+import { GithubIcon, Globe, Eye } from "lucide-react";
+
+// * IMAGES
+import Image from "next/image";
 
 // * INTERFACES
+// support multiple link types and preview functionality
+interface ProjectLinks {
+  github: string;
+  demo?: string;
+  preview?: {
+    type: "image" | "video";
+    url: string;
+  };
+}
+
 interface ProjectItems {
   title: string;
   description: string;
   technologies: string[];
   types: "client" | "personal" | "open-source";
-  image?: string;
-  link?: string;
+  links: ProjectLinks;
 }
 
 interface ProjectsProps {
@@ -16,11 +31,19 @@ interface ProjectsProps {
 }
 
 const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
+  // state for preview modal
+  const [previewItem, setPreviewItem] = useState<{
+    type: "image" | "video";
+    url: string;
+  } | null>(null);
+
   const projects: ProjectItems[] = [
     {
       title: "WorkWaves - Job Platform",
       description:
-        "A comprehensive job platform built from the ground up. Led a team of three, implementing features like dynamic filtering, personalized pages, and responsive design. Implemented continuous deployment with Jest testing and GitHub Actions.",
+        "Full-stack job platform focusing on performance and user experience. " +
+        "Led a team of three developers, implementing dynamic filtering and personalized pages. " +
+        "Established robust CI/CD pipelines with Jest testing and GitHub Actions for reliable deployments.",
       technologies: [
         "React",
         "MongoDB",
@@ -30,14 +53,24 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
         "Jest",
         "GitHub Actions",
         "Balsamiq",
+        "Taiga",
       ],
       types: "personal",
-      link: "https://github.com/yourusername/workwaves",
+      links: {
+        github: "https://github.com/sidneythomas/workwaves",
+        demo: "https://workwaves-platform.digital-ocean.app",
+        preview: {
+          type: "image",
+          url: "/demos/workwaves-preview.jpg",
+        },
+      },
     },
     {
       title: "UNO Game",
       description:
-        "A multiplayer UNO card game supporting 2-4 players following official rules. Features include a landing page, room interface, and complete game playable interface with core UNO gameplay mechanics.",
+        "Multiplayer UNO implementation supporting 2-4 players with real-time gameplay. " +
+        "Features include dynamic room management, game state handling, and responsive design. " +
+        "Built with TypeScript and PostgreSQL for robust game logic and state management.",
       technologies: [
         "TypeScript",
         "TailwindCSS",
@@ -47,31 +80,84 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
         "Render",
       ],
       types: "personal",
-      link: "https://github.com/yourusername/uno-game",
+      links: {
+        github: "https://github.com/sidneythomas/uno-game",
+        demo: "https://uno-multiplayer.render.com",
+        preview: {
+          type: "video",
+          url: "/demos/uno-gameplay.mp4",
+        },
+      },
     },
     {
       title: "2D Tank Game",
       description:
-        "A multiplayer tank battle game featuring a multithreaded game engine for concurrent game logic. Built with Java Swing for an engaging user interface supporting two players simultaneously.",
-      technologies: ["Java", "Java Swing", "Multithreading"],
+        "Real-time multiplayer tank battle game utilizing multithreading for concurrent game logic. " +
+        "Engineered a responsive game engine supporting simultaneous two-player gameplay. " +
+        "Implemented engaging user interface with Java Swing, featuring smooth animations and intuitive controls.",
+      technologies: [
+        "Java",
+        "Java Swing",
+        "Multithreading",
+        "Game Development",
+        "UI Design",
+      ],
       types: "personal",
-      link: "https://github.com/yourusername/2d-tank-game",
+      links: {
+        github: "https://github.com/sidneythomas/2d-tank-game",
+        preview: {
+          type: "video",
+          url: "/demos/tank-gameplay.mp4",
+        },
+      },
     },
     {
       title: "UnivTube - Video Platform",
       description:
-        "A video sharing platform with features like video uploads, playback, user comments, and content discovery. Implemented efficient data schemas and relationships for optimal performance.",
-      technologies: ["HTML", "CSS", "JavaScript", "Handlebars", "MySQL"],
+        "Feature-rich video sharing platform with comprehensive functionality. " +
+        "Implemented video uploads, playback, user comments, and content discovery features. " +
+        "Designed efficient database schemas for optimal performance, managing user data, videos, and community interactions.",
+      technologies: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Handlebars",
+        "MySQL",
+        "REST API",
+        "Database Design",
+      ],
       types: "personal",
-      link: "https://github.com/yourusername/univtube",
+      links: {
+        github: "https://github.com/sidneythomas/univtube",
+        demo: "https://univtube-platform.com",
+        preview: {
+          type: "image",
+          url: "/demos/univtube-features.jpg",
+        },
+      },
     },
     {
       title: "Tripizy - Travel Mobile App",
       description:
-        "A cross-platform travel application developed for both Android and iOS. Collaborated in a four-person team over a month-long intensive development period.",
-      technologies: ["React Native", "MongoDB", "Node.js", "Express"],
-      types: "personal",
-      link: "https://github.com/yourusername/tripizy",
+        "Cross-platform travel application built for both Android and iOS platforms. " +
+        "Led intensive month-long development with a team of four developers. " +
+        "Focused on creating a seamless user experience across different devices using React Native and MongoDB.",
+      technologies: [
+        "React Native",
+        "MongoDB",
+        "Node.js",
+        "Express",
+        "Mobile Development",
+        "Cross-platform Development",
+      ],
+      types: "client",
+      links: {
+        github: "https://github.com/sidneythomas/tripizy",
+        preview: {
+          type: "image",
+          url: "/demos/tripizy-mobile.jpg",
+        },
+      },
     },
   ];
 
@@ -81,48 +167,114 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
         PROJECTS
       </h2>
 
-      {projects.map((project, index) => (
-        <div
-          key={index}
-          className="bg-black bg-opacity-40 p-4 rounded hover:bg-opacity-50 
-                             transition-all duration-300 group cursor-pointer"
-        >
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="text-lg font-semibold text-blue-200 group-hover:text-blue-100">
-              {project.title}
-            </h3>
-            <span className="text-xs bg-blue-900 px-2 py-1 rounded-full text-blue-200">
-              {project.types}
-            </span>
-          </div>
-
-          <p className="text-gray-300 mb-3 text-sm">{project.description}</p>
-
-          <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech, techIndex) => (
-              <span
-                key={techIndex}
-                className="text-xs bg-blue-800 bg-opacity-30 px-2 py-1 rounded-full
-                                 text-blue-200"
-              >
-                {tech}
+      <div className="grid grid-cols-1 gap-6">
+        {projects.map((project, index) => (
+          <div
+            key={index}
+            className="bg-[#0A0B2E] p-4 rounded hover:bg-opacity-90 
+                     transition-all duration-300 group"
+          >
+            {/* Project Header */}
+            <div className="flex justify-between items-start mb-2">
+              <h3 className="text-lg font-semibold text-white group-hover:text-blue-100">
+                {project.title}
+              </h3>
+              <span className="text-xs bg-[#1A1A60] px-2 py-1 rounded-full text-blue-200">
+                {project.types}
               </span>
-            ))}
-          </div>
+            </div>
 
-          {project.link && (
-            <a
-              href={project.link}
-              className="mt-3 inline-block text-sm text-blue-400 hover:text-blue-300
-                               transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Project →
-            </a>
-          )}
+            {/* Project Description */}
+            <p className="text-gray-300 mb-3 text-sm leading-relaxed">
+              {project.description}
+            </p>
+
+            {/* Technology Tags */}
+            <div className="flex flex-wrap gap-2 mb-4">
+              {project.technologies.map((tech, techIndex) => (
+                <span
+                  key={techIndex}
+                  className="text-xs bg-[#1A1A60] bg-opacity-50 px-2 py-1 
+                           rounded-full text-blue-200"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            {/* Action Links */}
+            <div className="flex gap-4 mt-4">
+              <a
+                href={project.links.github}
+                className="inline-flex items-center gap-2 text-sm text-blue-400 
+                         hover:text-blue-300 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <GithubIcon size={16} />
+                Code
+              </a>
+
+              {project.links.demo && (
+                <a
+                  href={project.links.demo}
+                  className="inline-flex items-center gap-2 text-sm text-green-400 
+                           hover:text-green-300 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Globe size={16} />
+                  Demo
+                </a>
+              )}
+
+              {project.links.preview && (
+                <button
+                  onClick={() =>
+                    project.links.preview &&
+                    setPreviewItem(project.links.preview)
+                  }
+                  className="inline-flex items-center gap-2 text-sm text-purple-400 
+                           hover:text-purple-300 transition-colors"
+                >
+                  <Eye size={16} />
+                  Preview
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Preview Modal */}
+      {previewItem && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-75 flex items-center 
+                     justify-center z-50 p-4"
+          onClick={() => setPreviewItem(null)}
+        >
+          <div className="max-w-4xl w-full bg-[#0A0B2E] rounded-lg overflow-hidden">
+            {previewItem.type === "video" ? (
+              <video
+                src={previewItem.url}
+                controls
+                className="w-full"
+                autoPlay
+                onClick={(e) => e.stopPropagation()}
+              />
+            ) : (
+              <Image
+                src={previewItem.url}
+                alt="Project preview"
+                width={1920}
+                height={1080}
+                className="w-full h-auto"
+                onClick={(e) => e.stopPropagation()}
+              />
+            )}
+          </div>
         </div>
-      ))}
+      )}
     </div>
   );
 };
