@@ -2,6 +2,7 @@
 import React from "react";
 
 // * INTERFACES
+// interfaces to define the structure of service items and props
 interface ServiceItems {
   title: string;
   description: string;
@@ -12,7 +13,9 @@ interface ServiceProps {
   className?: string;
 }
 
+// * COMPONENT
 const Service: React.FC<ServiceProps> = ({ className = "" }) => {
+  // array containing all service offerings and their details
   const service: ServiceItems[] = [
     {
       title: "Web Development",
@@ -71,21 +74,27 @@ const Service: React.FC<ServiceProps> = ({ className = "" }) => {
 
   return (
     <div className={`space-y-6 ${className}`}>
+      {/* section title */}
       <h2 className="text-xl font-bold text-blue-100 border-b border-blue-800 pb-2">
         SERVICES
       </h2>
 
+      {/* map through services array to create individual service cards */}
       {service.map((service, index) => (
         <div
           key={index}
           className="bg-black bg-opacity-40 p-4 rounded hover:bg-opacity-50 
                      transition-all duration-300 transform hover:-translate-y-1"
         >
+          {/* service title */}
           <h3 className="text-lg font-semibold text-blue-200 mb-2">
             {service.title}
           </h3>
+          {/* service description */}
           <p className="text-gray-300 mb-3 text-sm">{service.description}</p>
+          {/* skills tags container */}
           <div className="flex flex-wrap gap-2">
+            {/* map through skills to create individual skill tags */}
             {service.skills.map((skills, skillIndex) => (
               <span
                 key={skillIndex}

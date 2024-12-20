@@ -30,6 +30,7 @@ interface ProjectsProps {
   className?: string;
 }
 
+// * COMPONENT
 const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
   // state to manage the preview modal visibility and content
   const [previewItem, setPreviewItem] = useState<{
