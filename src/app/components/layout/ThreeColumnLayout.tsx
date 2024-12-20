@@ -1,3 +1,5 @@
+"use client";
+
 // * REACT IMPORTS
 import React from "react";
 
@@ -16,10 +18,32 @@ interface ThreeColumnLayoutProps {
 
 // individual Column component with TypeScript props
 const Column: React.FC<ColumnProps> = ({ children, className = "" }) => {
-  const baseClasses = "p-4 rounded bg-opacity-30 bg-black";
+  const baseClasses =
+    "p-4 rounded bg-opacity-30 bg-black max-h-[calc(100vh-4rem)] overflow-y-auto";
   const combinedClasses = `${baseClasses} ${className}`.trim();
 
-  return <div className={combinedClasses}>{children}</div>;
+  return (
+    <div className={combinedClasses}>
+      {/* Add custom scrollbar styling */}
+      <style jsx global>{`
+        .${baseClasses.replace(/\s+/g, ".")} {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(59, 130, 246, 0.5) transparent;
+        }
+        .${baseClasses.replace(/\s+/g, ".")}::-webkit-scrollbar {
+          width: 6px;
+        }
+        .${baseClasses.replace(/\s+/g, ".")}::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .${baseClasses.replace(/\s+/g, ".")}::-webkit-scrollbar-thumb {
+          background-color: rgba(59, 130, 246, 0.5);
+          border-radius: 3px;
+        }
+      `}</style>
+      {children}
+    </div>
+  );
 };
 
 // main layout component
