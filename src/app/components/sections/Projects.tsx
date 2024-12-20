@@ -31,12 +31,13 @@ interface ProjectsProps {
 }
 
 const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
-  // state for preview modal
+  // state to manage the preview modal visibility and content
   const [previewItem, setPreviewItem] = useState<{
     type: "image" | "video";
     url: string;
   } | null>(null);
 
+  // array of project data containing information about each project
   const projects: ProjectItems[] = [
     {
       title: "WorkWaves - Job Platform",
@@ -163,18 +164,20 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
 
   return (
     <div className={`space-y-6 ${className}`}>
+      {/* section title */}
       <h2 className="text-xl font-bold text-blue-100 border-b border-blue-800 pb-2">
         PROJECTS
       </h2>
 
       <div className="grid grid-cols-1 gap-6">
+        {/* map through projects array to create individual project cards */}
         {projects.map((project, index) => (
           <div
             key={index}
             className="bg-[#0A0B2E] p-4 rounded hover:bg-opacity-90 
                      transition-all duration-300 group"
           >
-            {/* Project Header */}
+            {/* project title and type badge */}
             <div className="flex justify-between items-start mb-2">
               <h3 className="text-lg font-semibold text-white group-hover:text-blue-100">
                 {project.title}
@@ -184,12 +187,12 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
               </span>
             </div>
 
-            {/* Project Description */}
+            {/* project description paragraph */}
             <p className="text-gray-300 mb-3 text-sm leading-relaxed">
               {project.description}
             </p>
 
-            {/* Technology Tags */}
+            {/* technology stack tags */}
             <div className="flex flex-wrap gap-2 mb-4">
               {project.technologies.map((tech, techIndex) => (
                 <span
@@ -202,7 +205,7 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
               ))}
             </div>
 
-            {/* Action Links */}
+            {/* project links section (github, demo, preview) */}
             <div className="flex gap-4 mt-4">
               <a
                 href={project.links.github}
@@ -246,7 +249,7 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
         ))}
       </div>
 
-      {/* Preview Modal */}
+      {/* modal for displaying project previews (images/videos) */}
       {previewItem && (
         <div
           className="fixed inset-0 bg-black bg-opacity-75 flex items-center 
