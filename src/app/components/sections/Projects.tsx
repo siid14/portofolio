@@ -57,11 +57,11 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
       ],
       types: "personal",
       links: {
-        github: "https://github.com/sidneythomas/workwaves",
-        demo: "https://workwaves-platform.digital-ocean.app",
+        github: "https://github.com/siid14/WorkWaves",
+        demo: "",
         preview: {
           type: "image",
-          url: "/demos/workwaves-preview.jpg",
+          url: "",
         },
       },
     },
@@ -81,11 +81,11 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
       ],
       types: "personal",
       links: {
-        github: "https://github.com/sidneythomas/uno-game",
-        demo: "https://uno-multiplayer.render.com",
+        github: "https://github.com/siid14/UNO",
+        demo: "",
         preview: {
           type: "video",
-          url: "/demos/uno-gameplay.mp4",
+          url: "",
         },
       },
     },
@@ -104,10 +104,10 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
       ],
       types: "personal",
       links: {
-        github: "https://github.com/sidneythomas/2d-tank-game",
+        github: "https://github.com/siid14/2D-Tank-Game",
         preview: {
           type: "video",
-          url: "/demos/tank-gameplay.mp4",
+          url: "",
         },
       },
     },
@@ -128,11 +128,11 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
       ],
       types: "personal",
       links: {
-        github: "https://github.com/sidneythomas/univtube",
-        demo: "https://univtube-platform.com",
+        github: "https://github.com/siid14/UnivTube",
+        demo: "",
         preview: {
           type: "image",
-          url: "/demos/univtube-features.jpg",
+          url: "",
         },
       },
     },
@@ -152,10 +152,10 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
       ],
       types: "client",
       links: {
-        github: "https://github.com/sidneythomas/tripizy",
+        github: "https://github.com/siid14/Tripizy",
         preview: {
           type: "image",
-          url: "/demos/tripizy-mobile.jpg",
+          url: "",
         },
       },
     },
