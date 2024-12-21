@@ -7,11 +7,6 @@ import React, { useState } from "react";
 import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 
 // * INTERFACES
-interface NavigationLinks {
-  name: string;
-  href: string;
-}
-
 interface SocialLinks {
   name: string;
   href: string;
@@ -100,19 +95,6 @@ const Footer: React.FC<FooterProps> = ({
         <div className="container mx-auto px-4">
           {/* main footer content with horizontal layout */}
           <div className="flex flex-wrap justify-between items-center gap-4 mb-6">
-            {/* navigation links */}
-            {/* <nav className="flex items-center space-x-6">
-              {navigationLinks.map((link: NavigationLinks) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-gray-300 hover:text-white transition-colors duration-200 text-sm"
-                >
-                  {link.name}
-                </a>
-              ))}
-            </nav> */}
-
             {/* social Media Icons */}
             <div className="flex items-center space-x-4">
               {socialLinks.map((social: SocialLinks) => (
