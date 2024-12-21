@@ -60,11 +60,11 @@ const Footer: React.FC<FooterProps> = ({
   companyName = "Sidney Thomas",
   year = new Date().getFullYear(),
 }) => {
-  const navigationLinks: NavigationLinks[] = [
-    { name: "Projects", href: "#projects" },
-    { name: "Skills", href: "#skills" },
-    { name: "Contact", href: "#contact" },
-  ];
+  // const navigationLinks: NavigationLinks[] = [
+  //   { name: "Projects", href: "#projects" },
+  //   { name: "Skills", href: "#skills" },
+  //   { name: "Contact", href: "#contact" },
+  // ];
 
   const socialLinks: SocialLinks[] = [
     {
