@@ -3,6 +3,7 @@ import ThreeColumnLayout from "./components/layout/ThreeColumnLayout";
 import Services from "./components/sections/Services";
 import Projects from "./components/sections/Projects";
 import InDevelopment from "./components/sections/InDevelopment";
+import Footer from "./components/layout/Footer";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
         centerColumn={<Projects />}
         rightColumn={<InDevelopment />}
       />
+      <Footer companyName="Sidney Thomas" year={new Date().getFullYear()} />
     </main>
   );
 }
