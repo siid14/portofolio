@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { FileDown, Eye } from "lucide-react";
+import { FileDown, Eye, Mail } from "lucide-react";
+import emailjs from "@emailjs/browser";
 
 interface HeroProps {
   className?: string;
@@ -12,6 +13,13 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ className = "" }) => {
   // state for managing resume preview modal
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   // bio information object
   const bio = {
@@ -26,6 +34,34 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
     When I'm not coding, you'll find me on the soccer field, at the gym, or enjoying music. These hobbies keep me energized and often help me think about coding problems in new ways.`,
     location: "Los Angeles, California",
     status: "Open to opportunities",
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      await emailjs.send(
+        "service_66eglml", // from EmailJS
+        "template_xlm0fe7", // from EmailJS
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_name: "Sidney",
+        },
+        "AoHsOOb2pr57gDes4" // from EmailJS
+      );
+
+      alert("Message sent successfully!");
+      setIsContactOpen(false);
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("Failed to send message. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -130,6 +166,17 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
                 <Eye className="w-5 h-5 mr-2" />
                 Preview Resume
               </button>
+
+              <button
+                onClick={() => setIsContactOpen(true)}
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r 
+                         from-green-700 to-green-600 hover:from-green-600 
+                         hover:to-green-500 text-white rounded-md transition-all 
+                         duration-200 shadow-lg hover:shadow-green-500/25"
+              >
+                <Mail className="w-5 h-5 mr-2" />
+                Contact Me
+              </button>
             </div>
           </div>
         </div>
@@ -157,6 +204,89 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
               title="Resume Preview"
               onClick={(e) => e.stopPropagation()}
             />
+          </div>
+        </div>
+      )}
+
+      {/* Contact form modal */}
+      {isContactOpen && (
+        <div
+          className="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4"
+          onClick={() => setIsContactOpen(false)}
+        >
+          <div
+            className="bg-white rounded-lg overflow-hidden max-w-md w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center p-4 bg-blue-900">
+              <h3 className="text-white font-bold">Contact Me</h3>
+              <button
+                onClick={() => setIsContactOpen(false)}
+                className="text-white hover:text-gray-300"
+              >
+                Close
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="p-6">
+              <div className="mb-4">
+                <label htmlFor="name" className="block text-gray-700 mb-2">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-gray-700 mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="message" className="block text-gray-700 mb-2">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  value={formData.message}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-32 text-black"
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full px-6 py-3 bg-gradient-to-r from-blue-700 to-blue-600 
+                         hover:from-blue-600 hover:to-blue-500 text-white rounded-md 
+                         transition-all duration-200 shadow-lg hover:shadow-blue-500/25
+                         disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isLoading ? "Sending..." : "Send Message"}
+              </button>
+            </form>
           </div>
         </div>
       )}
