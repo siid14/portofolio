@@ -55,16 +55,16 @@ const ThreeColumnLayout: React.FC<ThreeColumnLayoutProps> = ({
 }) => {
   return (
     <div className={`container mx-auto px-4 py-8 ${className}`.trim()}>
-      {/* Grid container with responsive classes */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Grid container with improved responsive classes */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
         {/* Left Column - Services */}
-        <Column className="md:col-span-1">{leftColumn}</Column>
+        <Column className="lg:col-span-1 min-h-[300px]">{leftColumn}</Column>
 
         {/* Center Column - Projects Spotlight */}
-        <Column className="md:col-span-1">{centerColumn}</Column>
+        <Column className="lg:col-span-1 min-h-[300px]">{centerColumn}</Column>
 
         {/* Right Column - In development */}
-        <Column className="md:col-span-1">{rightColumn}</Column>
+        <Column className="lg:col-span-1 min-h-[300px]">{rightColumn}</Column>
       </div>
     </div>
   );

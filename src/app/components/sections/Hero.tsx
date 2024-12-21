@@ -71,9 +71,9 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
 
       {/* main content container */}
       <div className="relative z-10 container mx-auto px-4 py-16">
-        <div className="flex flex-col md:flex-row gap-8 items-start max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row gap-8 items-center md:items-start max-w-6xl mx-auto">
           {/* Profile Image Section */}
-          <div className="relative flex-shrink-0">
+          <div className="relative flex-shrink-0 w-full md:w-auto flex justify-center md:justify-start">
             {/* Decorative frame inspired by PlayStation UI */}
             <div className="absolute inset-0 -m-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg opacity-50 blur" />
             <div className="relative">
@@ -109,31 +109,33 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
             </div>
           </div>
 
-          {/* Text Content */}
-          <div className="flex-grow">
+          {/* Text Content with improved mobile spacing */}
+          <div className="flex-grow text-center md:text-left">
             <h1
-              className="text-4xl md:text-6xl font-bold text-white mb-4 
+              className="text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-4 
                          tracking-tight antialiased"
             >
               {bio.title}
             </h1>
 
-            <h2 className="text-xl md:text-2xl text-blue-300 mb-6">
+            <h2 className="text-lg md:text-xl lg:text-2xl text-blue-300 mb-6">
               {bio.subtitle}
             </h2>
 
             {/* Location badge */}
-            <div
-              className="inline-flex items-center bg-blue-900/50 px-3 py-1 rounded-full 
+            <div className="flex justify-center md:justify-start">
+              <div
+                className="inline-flex items-center bg-blue-900/50 px-3 py-1 rounded-full 
                           text-blue-200 text-sm mb-8"
-            >
-              <span className="mr-2">📍</span>
-              {bio.location}
-              <span className="ml-4 mr-2">•</span>
-              <span className="flex items-center">
-                <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                {bio.status}
-              </span>
+              >
+                <span className="mr-2">📍</span>
+                {bio.location}
+                <span className="ml-4 mr-2">•</span>
+                <span className="flex items-center">
+                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+                  {bio.status}
+                </span>
+              </div>
             </div>
 
             {/* Bio text */}
@@ -141,8 +143,8 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
               <p className="whitespace-pre-line">{bio.description}</p>
             </div>
 
-            {/* CTA Buttons with PS1-era styling */}
-            <div className="flex flex-wrap gap-4">
+            {/* CTA Buttons with improved mobile layout */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <button
                 onClick={() =>
                   window.open("/Resume-Sept24-SidneyThomas copy.pdf", "_blank")
@@ -210,12 +212,9 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
 
       {/* Contact form modal */}
       {isContactOpen && (
-        <div
-          className="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4"
-          onClick={() => setIsContactOpen(false)}
-        >
+        <div className="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4">
           <div
-            className="bg-white rounded-lg overflow-hidden max-w-md w-full"
+            className="bg-white rounded-lg overflow-hidden w-full max-w-md mx-4"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center p-4 bg-blue-900">
@@ -240,7 +239,7 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
@@ -256,7 +255,7 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
@@ -271,7 +270,7 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-32 text-black"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
                   required
                 />
               </div>
