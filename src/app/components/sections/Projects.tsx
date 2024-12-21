@@ -172,17 +172,17 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
         PROJECTS
       </h2>
 
-      <div className="grid grid-cols-1 gap-6">
+      <div className="grid grid-cols-1 gap-4 md:gap-6">
         {/* map through projects array to create individual project cards */}
         {projects.map((project, index) => (
           <div
             key={index}
-            className="bg-[#0A0B2E] p-4 rounded hover:bg-opacity-90 
+            className="bg-[#0A0B2E] p-3 md:p-4 rounded hover:bg-opacity-90 
                      transition-all duration-300 group"
           >
             {/* project title and type badge */}
-            <div className="flex justify-between items-start mb-2">
-              <h3 className="text-lg font-semibold text-white group-hover:text-blue-100">
+            <div className="flex flex-col md:flex-row justify-between items-start mb-2">
+              <h3 className="text-lg font-semibold text-white group-hover:text-blue-100 mb-2 md:mb-0">
                 {project.title}
               </h3>
               <span className="text-xs bg-[#1A1A60] px-2 py-1 rounded-full text-blue-200">
