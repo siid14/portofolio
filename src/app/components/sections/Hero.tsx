@@ -52,7 +52,7 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
         },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
       );
-      // testing pipeline
+      // testing pipeline 2
       alert("Message sent successfully!");
       setIsContactOpen(false);
       setFormData({ name: "", email: "", message: "" });
