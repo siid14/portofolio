@@ -1,0 +1,80 @@
+# This workflow handles the CI/CD pipeline
+name: Next.js CI/CD
+
+# Define when this workflow will run
+on:
+  pull_request:
+    branches: [preview, main] # Runs on PRs targeting preview or main
+  push:
+    branches: [preview, main] # Runs when code is pushed to preview or main
+
+# Environment variables available to all jobs and steps
+env:
+  NEXT_TELEMETRY_DISABLED: 1 # Disable Next.js telemetry for cleaner logs
+
+jobs:
+  # Main job that handles building and testing
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Get your code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20" # Using Node 20 for Next.js 15
+          cache: "yarn" # Enable caching for yarn
+
+      # Step 3: Install project dependencies
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # Step 4: Type checking with TypeScript
+      - name: Type check
+        run: yarn tsc --noEmit
+
+      # Step 5: Lint the code
+      - name: Lint
+        run: yarn lint
+
+      # Step 6: Verify the build
+      - name: Build
+        env:
+          NEXT_PUBLIC_EMAILJS_SERVICE_ID: ${{ secrets.NEXT_PUBLIC_EMAILJS_SERVICE_ID }}
+          NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: ${{ secrets.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID }}
+          NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY }}
+          VERCEL_ENV: preview
+        run: yarn build
+
+  # Job for preview deployment checks
+  preview-deploy:
+    needs: build-and-test # This job only runs after build-and-test succeeds
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/preview'
+    environment:
+      name: preview
+      url: ${{ steps.vercel-preview-url.outputs.url }}
+    steps:
+      - name: Preview deployment
+        id: vercel-preview-url
+        run: |
+          echo "Vercel will handle the preview deployment automatically"
+          # The actual deployment happens through Vercel's GitHub integration
+
+  # Job for production deployment checks
+  production-deploy:
+    needs: build-and-test # This job only runs after build-and-test succeeds
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      url: ${{ steps.vercel-prod-url.outputs.url }}
+    steps:
+      - name: Production deployment
+        id: vercel-prod-url
+        run: |
+          echo "Vercel will handle the production deployment automatically"
+          # The actual deployment happens through Vercel's GitHub integration
