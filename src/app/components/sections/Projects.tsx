@@ -63,10 +63,6 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
       links: {
         github: "https://github.com/siid14/WorkWaves",
         demo: "",
-        preview: {
-          type: "image",
-          url: "",
-        },
       },
     },
     {
@@ -87,10 +83,6 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
       links: {
         github: "https://github.com/siid14/UNO",
         demo: "",
-        preview: {
-          type: "video",
-          url: "",
-        },
       },
     },
     {
@@ -154,7 +146,7 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
         "Mobile Development",
         "Cross-platform Development",
       ],
-      types: "client",
+      types: "personal",
       links: {
         github: "https://github.com/siid14/Tripizy",
         preview: {
