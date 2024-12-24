@@ -80,7 +80,7 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
         github: "https://github.com/siid14/2D-Tank-Game",
         preview: {
           type: "video",
-          url: "/projects/videos/2D-TANK-GAME-Video-Preview.mp4",
+          url: "/projects/videos/2D-TANK-GAME-Demo-Compressed.mp4",
         },
       },
     },
