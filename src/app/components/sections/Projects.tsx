@@ -43,26 +43,45 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
   // array of project data containing information about each project
   const projects: ProjectItems[] = [
     {
-      title: "WorkWaves - Job Platform",
+      title: "Linux-Compatible File System",
       description:
-        "Full-stack job platform focusing on performance and user experience. " +
-        "Led a team of three developers, implementing dynamic filtering and personalized pages. " +
-        "Established robust CI/CD pipelines with Jest testing and GitHub Actions for reliable deployments.",
+        "Implemented a custom file system compatible with the Linux ecosystem using C. " +
+        "Led a four-person team through design and implementation phases, handling volume formatting, directory operations, and file management. " +
+        "Developed low-level I/O operations for efficient disk sector management and data storage.",
       technologies: [
-        "React",
-        "MongoDB",
-        "Node.js",
-        "Express",
-        "Digital Ocean",
-        "Jest",
-        "GitHub Actions",
-        "Balsamiq",
-        "Taiga",
+        "C",
+        "Linux",
+        "System Calls",
+        "Low-level I/O",
+        "File Systems",
+        "Data Structures",
       ],
       types: "personal",
       links: {
-        github: "https://github.com/siid14/WorkWaves",
+        github: "https://github.com/siid14/filesystem-testing",
         demo: "",
+      },
+    },
+    {
+      title: "2D Tank Game",
+      description:
+        "Real-time multiplayer tank battle game utilizing multithreading for concurrent game logic. " +
+        "Engineered a responsive game engine supporting simultaneous two-player gameplay. " +
+        "Implemented engaging user interface with Java Swing, featuring smooth animations and intuitive controls.",
+      technologies: [
+        "Java",
+        "Java Swing",
+        "Multithreading",
+        "Game Development",
+        "UI Design",
+      ],
+      types: "personal",
+      links: {
+        github: "https://github.com/siid14/2D-Tank-Game",
+        preview: {
+          type: "video",
+          url: "/projects/videos/2D-TANK-GAME-Video-Preview.mp4",
+        },
       },
     },
     {
@@ -86,27 +105,29 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
       },
     },
     {
-      title: "2D Tank Game",
+      title: "WorkWaves - Job Platform",
       description:
-        "Real-time multiplayer tank battle game utilizing multithreading for concurrent game logic. " +
-        "Engineered a responsive game engine supporting simultaneous two-player gameplay. " +
-        "Implemented engaging user interface with Java Swing, featuring smooth animations and intuitive controls.",
+        "Full-stack job platform focusing on performance and user experience. " +
+        "Led a team of three developers, implementing dynamic filtering and personalized pages. " +
+        "Established robust CI/CD pipelines with Jest testing and GitHub Actions for reliable deployments.",
       technologies: [
-        "Java",
-        "Java Swing",
-        "Multithreading",
-        "Game Development",
-        "UI Design",
+        "React",
+        "MongoDB",
+        "Node.js",
+        "Express",
+        "Digital Ocean",
+        "Jest",
+        "GitHub Actions",
+        "Balsamiq",
+        "Taiga",
       ],
       types: "personal",
       links: {
-        github: "https://github.com/siid14/2D-Tank-Game",
-        preview: {
-          type: "video",
-          url: "",
-        },
+        github: "https://github.com/siid14/WorkWaves",
+        demo: "",
       },
     },
+
     {
       title: "UnivTube - Video Platform",
       description:
@@ -128,7 +149,7 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
         demo: "",
         preview: {
           type: "image",
-          url: "",
+          url: "/projects/images/UNIVTUBE-Landing-Page.png",
         },
       },
     },
@@ -151,7 +172,7 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
         github: "https://github.com/siid14/Tripizy",
         preview: {
           type: "image",
-          url: "",
+          url: "/projects/images/Tripizy-Landing-Page.png",
         },
       },
     },
