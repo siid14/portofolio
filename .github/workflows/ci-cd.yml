@@ -4,9 +4,9 @@ name: Next.js CI/CD
 # Define when this workflow will run
 on:
   pull_request:
-    branches: [preview, main] # Runs on PRs targeting preview or main
+    branches: [main] # Runs on PRs targeting main
   push:
-    branches: [preview, main] # Runs when code is pushed to preview or main
+    branches: [main] # Runs when code is pushed to main
 
 # Environment variables available to all jobs and steps
 env:
@@ -48,21 +48,6 @@ jobs:
           NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY }}
           VERCEL_ENV: preview
         run: yarn build
-
-  # Job for preview deployment checks
-  preview-deploy:
-    needs: build-and-test # This job only runs after build-and-test succeeds
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/preview'
-    environment:
-      name: preview
-      url: ${{ steps.vercel-preview-url.outputs.url }}
-    steps:
-      - name: Preview deployment
-        id: vercel-preview-url
-        run: |
-          echo "Vercel will handle the preview deployment automatically"
-          # The actual deployment happens through Vercel's GitHub integration
 
   # Job for production deployment checks
   production-deploy:
