@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { FileDown, Eye, Mail } from "lucide-react";
 import emailjs from "@emailjs/browser";
@@ -20,6 +20,13 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
     message: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  // Add mounted state for hydration safety
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Set mounted state when component mounts
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // bio information object
   const bio = {
@@ -63,6 +70,34 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
       setIsLoading(false);
     }
   };
+
+  // Return a skeleton while not mounted on client
+  if (!isMounted) {
+    return (
+      <section className={`relative overflow-hidden ${className}`}>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-blue-900 to-purple-900 opacity-50" />
+        <div className="relative z-10 container mx-auto px-4 py-16">
+          <div className="flex flex-col md:flex-row gap-8 items-center md:items-start max-w-6xl mx-auto">
+            <div className="relative flex-shrink-0 w-full md:w-auto flex justify-center md:justify-start">
+              <div className="w-48 h-48 md:w-64 md:h-64 rounded-lg bg-blue-900 animate-pulse" />
+            </div>
+            <div className="flex-grow text-center md:text-left">
+              <div className="h-10 bg-blue-900 rounded w-3/4 mb-4 animate-pulse" />
+              <div className="h-6 bg-blue-900 rounded w-1/2 mb-6 animate-pulse" />
+              <div className="h-4 bg-blue-900 rounded w-full mb-2 animate-pulse" />
+              <div className="h-4 bg-blue-900 rounded w-full mb-2 animate-pulse" />
+              <div className="h-4 bg-blue-900 rounded w-3/4 mb-8 animate-pulse" />
+              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <div className="h-12 bg-blue-900 rounded w-48 animate-pulse" />
+                <div className="h-12 bg-blue-900 rounded w-48 animate-pulse" />
+                <div className="h-12 bg-blue-900 rounded w-48 animate-pulse" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={`relative overflow-hidden ${className}`}>

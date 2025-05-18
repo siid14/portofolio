@@ -1,5 +1,7 @@
+"use client";
+
 // * REACT IMPORTS
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // * INTERFACES
 // interfaces to define the structure of service items and props
@@ -15,6 +17,14 @@ interface ServiceProps {
 
 // * COMPONENT
 const Service: React.FC<ServiceProps> = ({ className = "" }) => {
+  // Add mounted state for client-side hydration
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Set mounted state when component mounts
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // array containing all service offerings and their details
   const service: ServiceItems[] = [
     {
@@ -71,6 +81,33 @@ const Service: React.FC<ServiceProps> = ({ className = "" }) => {
       skills: ["Agile", "Scrum", "Kanban", "Taiga"],
     },
   ];
+
+  // Return a skeleton while not mounted on client
+  if (!isMounted) {
+    return (
+      <div className={`space-y-6 ${className}`}>
+        <h2 className="text-xl font-bold text-blue-100 border-b border-blue-800 pb-2">
+          SERVICES
+        </h2>
+        <div className="grid grid-cols-1 gap-4">
+          {service.map((_, index) => (
+            <div
+              key={index}
+              className="bg-black bg-opacity-40 p-3 md:p-4 rounded animate-pulse"
+            >
+              <div className="h-6 bg-blue-900 rounded w-1/2 mb-3"></div>
+              <div className="h-4 bg-blue-900 rounded w-full mb-4"></div>
+              <div className="flex flex-wrap gap-2">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="h-6 bg-blue-900 rounded w-16"></div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`space-y-6 ${className}`}>

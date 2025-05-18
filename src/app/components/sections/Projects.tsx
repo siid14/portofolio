@@ -1,7 +1,7 @@
 "use client";
 
 // * REACT IMPORTS
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // * ICONS
 import { GithubIcon, Globe, Eye } from "lucide-react";
@@ -12,8 +12,9 @@ import Image from "next/image";
 // * INTERFACES
 // support multiple link types and preview functionality
 interface ProjectLinks {
-  github: string;
+  github?: string;
   demo?: string;
+  website?: string;
   preview?: {
     type: "image" | "video";
     url: string;
@@ -40,8 +41,62 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
     url: string;
   } | null>(null);
 
+  // Use this to track if component is mounted (client-side only)
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Set mounted state when component mounts (client-side only)
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // array of project data containing information about each project
   const projects: ProjectItems[] = [
+    {
+      title: "JOOBN: Streamlined Services Marketplace",
+      description:
+        "A simplified Craigslist-inspired platform connecting service providers with people through structured posts. " +
+        "Developed a frictionless request system eliminating back-and-forth communication by including comprehensive details upfront (location, payment, requirements). " +
+        "Implemented user profiles for service providers to showcase skills and availability, enabling direct connections. " +
+        "Features real-time notifications, secure authentication, and an intuitive UI designed to streamline the entire service booking process.",
+      technologies: [
+        "React",
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "AWS Cognito",
+        "Socket.io",
+        "RESTful API",
+        "Docker",
+        "Material UI",
+        "Authentication",
+        "Real-time Communication",
+      ],
+      types: "client",
+      links: {
+        website: "https://joobn.com/",
+      },
+    },
+    {
+      title: "Bet Tracker",
+      description:
+        "A comprehensive sports betting analytics dashboard developed with React. " +
+        "Built a responsive single-page application that visualizes betting performance through interactive charts, enabling users to track profit/loss, ROI, and win rates. " +
+        "Implemented multi-language support, PDF export functionality, and image handling for bet verification. " +
+        "Enhanced user experience with intuitive tooltips and responsive design optimized for all device sizes.",
+      technologies: [
+        "React",
+        "TailwindCSS",
+        "Recharts",
+        "Data Visualization",
+        "PDF Generation",
+        "Responsive Design",
+        "JavaScript",
+      ],
+      types: "personal",
+      links: {
+        website: "https://bet-tracker-five.vercel.app/",
+      },
+    },
     {
       title: "Linux-Compatible File System",
       description:
@@ -127,7 +182,6 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
         demo: "",
       },
     },
-
     {
       title: "UnivTube - Video Platform",
       description:
@@ -178,6 +232,35 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
     },
   ];
 
+  // Return an initial skeleton until client-side hydration is complete
+  if (!isMounted) {
+    return (
+      <div className={`space-y-6 ${className}`}>
+        <h2 className="text-xl font-bold text-blue-100 border-b border-blue-800 pb-2">
+          PROJECTS
+        </h2>
+        <div className="grid grid-cols-1 gap-4 md:gap-6">
+          {projects.map((_, index) => (
+            <div
+              key={index}
+              className="bg-[#0A0B2E] p-3 md:p-4 rounded animate-pulse"
+            >
+              <div className="h-6 bg-blue-900 rounded w-3/4 mb-4"></div>
+              <div className="h-4 bg-blue-900 rounded w-full mb-2"></div>
+              <div className="h-4 bg-blue-900 rounded w-5/6 mb-2"></div>
+              <div className="h-4 bg-blue-900 rounded w-full mb-4"></div>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="h-6 bg-blue-900 rounded w-16"></div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={`space-y-6 ${className}`}>
       {/* section title */}
@@ -223,16 +306,18 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
 
             {/* project links section (github, demo, preview) */}
             <div className="flex gap-4 mt-4">
-              <a
-                href={project.links.github}
-                className="inline-flex items-center gap-2 text-sm text-blue-400 
+              {project.links.github && (
+                <a
+                  href={project.links.github}
+                  className="inline-flex items-center gap-2 text-sm text-blue-400 
                          hover:text-blue-300 transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <GithubIcon size={16} />
-                Code
-              </a>
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <GithubIcon size={16} />
+                  Code
+                </a>
+              )}
 
               {project.links.demo && (
                 <a
@@ -244,6 +329,19 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
                 >
                   <Globe size={16} />
                   Demo
+                </a>
+              )}
+
+              {project.links.website && (
+                <a
+                  href={project.links.website}
+                  className="inline-flex items-center gap-2 text-sm text-green-400 
+                           hover:text-green-300 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Globe size={16} />
+                  Website
                 </a>
               )}
 
