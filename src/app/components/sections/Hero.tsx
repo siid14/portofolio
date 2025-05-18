@@ -182,7 +182,7 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <button
                 onClick={() =>
-                  window.open("/Resume-Sept24-SidneyThomas copy.pdf", "_blank")
+                  window.open("/Resume-SWE-Apr25-SidneyT.pdf", "_blank")
                 }
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r 
                          from-blue-700 to-blue-600 hover:from-blue-600 
@@ -236,7 +236,7 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
               </button>
             </div>
             <iframe
-              src="/Resume-Sept24-SidneyThomas copy.pdf"
+              src="/Resume-SWE-Apr25-SidneyT.pdf"
               className="w-full h-full"
               title="Resume Preview"
               onClick={(e) => e.stopPropagation()}
