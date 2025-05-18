@@ -71,7 +71,7 @@ const Projects: React.FC<ProjectsProps> = ({ className = "" }) => {
         "Authentication",
         "Real-time Communication",
       ],
-      types: "client",
+      types: "personal",
       links: {
         website: "https://joobn.com/",
       },
