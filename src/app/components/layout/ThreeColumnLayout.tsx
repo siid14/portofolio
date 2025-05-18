@@ -10,9 +10,9 @@ interface ColumnProps {
 }
 
 interface ThreeColumnLayoutProps {
-  leftColumn: React.ReactNode;
-  centerColumn: React.ReactNode;
-  rightColumn: React.ReactNode;
+  leftColumn?: React.ReactNode;
+  centerColumn?: React.ReactNode;
+  rightColumn?: React.ReactNode;
   className?: string;
 }
 
@@ -53,18 +53,33 @@ const ThreeColumnLayout: React.FC<ThreeColumnLayoutProps> = ({
   rightColumn,
   className = "",
 }) => {
+  // Count how many columns are provided
+  const columnCount = [leftColumn, centerColumn, rightColumn].filter(
+    Boolean
+  ).length;
+
   return (
     <div className={`container mx-auto px-4 py-8 ${className}`.trim()}>
       {/* Grid container with improved responsive classes */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+      <div
+        className={`grid grid-cols-1 ${
+          columnCount === 2
+            ? "md:grid-cols-2 max-w-4xl mx-auto"
+            : "lg:grid-cols-3"
+        } gap-4 md:gap-6`}
+      >
         {/* Left Column - Services */}
-        <Column className="lg:col-span-1 min-h-[300px]">{leftColumn}</Column>
+        {leftColumn && <Column className="min-h-[300px]">{leftColumn}</Column>}
 
         {/* Center Column - Projects Spotlight */}
-        <Column className="lg:col-span-1 min-h-[300px]">{centerColumn}</Column>
+        {centerColumn && (
+          <Column className="min-h-[300px]">{centerColumn}</Column>
+        )}
 
         {/* Right Column - In development */}
-        <Column className="lg:col-span-1 min-h-[300px]">{rightColumn}</Column>
+        {rightColumn && (
+          <Column className="min-h-[300px]">{rightColumn}</Column>
+        )}
       </div>
     </div>
   );
